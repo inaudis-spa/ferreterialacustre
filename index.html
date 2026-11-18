@@ -6,23 +6,22 @@
   <title>Ferretería Lacustre | Herramientas y materiales en La Araucanía</title>
   <meta name="description" content="Herramientas, fitting, pinturas y materiales de construcción. Ferretería Lacustre en Villarrica, Labranza y Cunco. Cotiza por WhatsApp.">
   <meta name="theme-color" content="#f5b900">
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="./">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="visual-editor.css">
-  <script defer src="app.js"></script>
+  <script type="module" src="app.js"></script>
   <script defer src="visual-editor.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <div id="site-intro" class="site-intro" aria-label="Presentación de Ferretería Lacustre">
-    <video id="intro-video" muted autoplay loop playsinline preload="auto">
-      <source src="ferreterialacustre/ferreteria-lacustre-cargainicio.mp4" type="video/mp4">
+  <div id="site-intro" class="site-intro" role="dialog" aria-modal="true" aria-label="Presentación de Ferretería Lacustre" hidden>
+    <video id="intro-video" muted playsinline preload="none">
+      <source data-src="ferreterialacustre/ferreteria-lacustre-cargainicio.mp4" type="video/mp4">
     </video>
     <div class="intro-fallback">
       <img src="ferreterialacustre/logo-circular-de-ferreteria-lacustre.png" alt="Ferretería Lacustre" width="180" height="180">
     </div>
-    <button id="skip-intro" type="button">Omitir presentación <span aria-hidden="true">→</span></button>
-    <div class="intro-progress" aria-hidden="true"><span></span></div>
+    <button id="skip-intro" type="button">Cerrar presentación <span aria-hidden="true">→</span></button>
   </div>
   <header class="site-header">
     <div class="header-inner">
@@ -30,9 +29,7 @@
         <img src="ferreterialacustre/logo-circular-de-ferreteria-lacustre.png" alt="" width="64" height="64">
         <span>Ferretería<br><strong>Lacustre</strong></span>
       </a>
-      <nav aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="catalogo.html">Catálogo</a><a href="categorias.html">Categorías</a><a href="ofertas.html">Ofertas</a><a href="#locales">Locales</a>
-      </nav>
+      <nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a><a href="categorias.html">Categorías</a><a href="ofertas.html">Ofertas</a><a href="index.html#locales">Locales</a></nav>
       <button class="quote-trigger" type="button" aria-controls="quote-panel" aria-expanded="false">
         <span>Mi cotización</span><b id="cart-count" aria-label="0 productos">0</b>
       </button>
@@ -42,19 +39,21 @@
   <main id="contenido">
     <section class="hero" id="inicio">
       <div class="hero-media" aria-hidden="true">
-        <video autoplay muted loop playsinline poster="ferreterialacustre/756620204_18117368666474540_4511804222887434583_n.jpg">
-          <source src="ferreterialacustre/vitrina-herramienta-ferreteria.mp4" type="video/mp4">
+        <img src="ferreterialacustre/756620204_18117368666474540_4511804222887434583_n.jpg" alt="" fetchpriority="high">
+        <video autoplay muted loop playsinline preload="none" hidden>
+          <source data-src="ferreterialacustre/vitrina-herramienta-ferreteria.mp4" type="video/mp4">
         </video>
       </div>
       <div class="hero-shade"></div>
       <div class="hero-content shell">
         <p class="eyebrow"><span></span> Villarrica · Labranza · Cunco</p>
-        <h1>Lo que tu proyecto necesita, <em>más cerca.</em></h1>
-        <p class="hero-copy">Herramientas, fitting, pinturas y materiales de construcción con atención directa para ayudarte a resolver.</p>
+        <h1>Tu ferretería en <em>La Araucanía.</em></h1>
+        <p class="hero-copy">Herramientas, fitting, pinturas y materiales de construcción en Villarrica, Labranza y Cunco.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="catalogo.html">Ver catálogo <span aria-hidden="true">↘</span></a>
           <a class="btn btn-ghost" href="https://wa.me/56972912278?text=Hola%20Ferreter%C3%ADa%20Lacustre%2C%20necesito%20ayuda%20con%20un%20producto." target="_blank" rel="noopener">Hablar por WhatsApp</a>
         </div>
+        <button class="btn btn-ghost intro-launch" id="play-intro" type="button" hidden>Ver presentación</button>
         <div class="hero-proof"><strong>3</strong><span>localidades<br>para atenderte</span><i></i><span>Atención directa<br>por WhatsApp</span></div>
       </div>
       <div class="hero-stamp" aria-hidden="true">DESDE 2010 · FERRETERÍA LACUSTRE · </div>
@@ -97,9 +96,9 @@
     <section class="locations shell" id="locales" aria-labelledby="locations-title">
       <div class="section-heading"><div><p class="kicker">Estamos cerca</p><h2 id="locations-title">Tres localidades,<br>la misma atención.</h2></div><p>Visítanos en Villarrica, Labranza o Cunco. Escríbenos antes para confirmar el local y la disponibilidad del producto que buscas.</p></div>
       <div class="location-grid">
-        <article><span>01</span><h3>Villarrica</h3><a href="https://wa.me/56972912278?text=Hola%2C%20quiero%20consultar%20por%20el%20local%20de%20Villarrica." target="_blank" rel="noopener">Consultar este local ↗</a></article>
-        <article><span>02</span><h3>Labranza</h3><a href="https://wa.me/56972912278?text=Hola%2C%20quiero%20consultar%20por%20el%20local%20de%20Labranza." target="_blank" rel="noopener">Consultar este local ↗</a></article>
-        <article><span>03</span><h3>Cunco</h3><a href="https://wa.me/56972912278?text=Hola%2C%20quiero%20consultar%20por%20el%20local%20de%20Cunco." target="_blank" rel="noopener">Consultar este local ↗</a></article>
+        <article><span>01</span><h3>Villarrica</h3><p>Antifil 2010</p><a href="sucursal.php?local=villarrica">Ver sucursal y cómo llegar ↗</a></article>
+        <article><span>02</span><h3>Labranza</h3><p>Estación 705, Labranza (Temuco)</p><a href="sucursal.php?local=labranza">Ver sucursal y cómo llegar ↗</a></article>
+        <article><span>03</span><h3>Cunco</h3><p>Av. Llaima 1935, Centro Comercial Alto Allipén</p><a href="sucursal.php?local=cunco">Ver sucursal y cómo llegar ↗</a></article>
       </div>
     </section>
   </main>
@@ -118,7 +117,7 @@
     <a class="social-whatsapp" href="https://wa.me/56972912278?text=Hola%20Ferreter%C3%ADa%20Lacustre%2C%20necesito%20ayuda." target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.5 7.8c.3-.4.6-.4.9-.1l1.1 1.5c.2.3.1.6-.1.9l-.5.6c.7 1.5 1.8 2.6 3.3 3.2l.6-.7c.2-.2.5-.3.8-.1l1.6.8c.4.2.4.5.3.9-.4 1-1.3 1.5-2.4 1.4-3.8-.5-6.8-3.4-7.3-7.1-.1-.6.5-1.1 1.7-1.3Z"/></svg></a>
   </div>
   <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
-  <aside id="quote-panel" class="quote-panel" aria-labelledby="quote-title" aria-hidden="true">
+  <aside id="quote-panel" class="quote-panel" role="dialog" aria-modal="true" aria-labelledby="quote-title" aria-hidden="true" inert>
     <div class="quote-head"><div><p class="kicker">Tu lista</p><h2 id="quote-title">Solicitar cotización</h2></div><button id="close-quote" type="button" aria-label="Cerrar cotización">×</button></div>
     <p class="quote-intro">Agrega cantidades y envía tu lista. Te confirmaremos disponibilidad, precios y entrega.</p>
     <div id="quote-items" class="quote-items"></div>

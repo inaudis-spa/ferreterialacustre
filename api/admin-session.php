@@ -2,6 +2,7 @@
 require __DIR__.'/../lib/bootstrap.php';
 try {
   if($_SERVER['REQUEST_METHOD']==='GET') json_response(['authenticated'=>(bool)admin(),'admin'=>admin(),'csrf'=>admin()?csrf():null]);
+  if($_SERVER['REQUEST_METHOD']!=='POST'){header('Allow: GET, POST');json_response(['error'=>'Método no permitido'],405);}
   $d=input();
   if(($d['action']??'')==='logout'){require_admin();require_csrf();session_destroy();json_response(['ok'=>true]);}
   $q=db()->prepare('SELECT id,email,name,password_hash FROM admin_users WHERE email=? AND is_active=1');$q->execute([strtolower(trim($d['email']??''))]);$u=$q->fetch();

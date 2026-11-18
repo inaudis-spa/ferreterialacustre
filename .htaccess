@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^producto\.html$ producto.php [R=301,L]
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^(?:database|lib|scripts)(?:/|$) - [F,L,NC]
+</IfModule>
+
+<FilesMatch "^(?:config(?:\.example)?\.php|\.env(?:\..*)?)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "[.]sql$">
+  Require all denied
+</FilesMatch>
