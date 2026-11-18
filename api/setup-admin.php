@@ -1,5 +1,10 @@
 <?php
 require __DIR__.'/../lib/bootstrap.php';
+if (!web_setup_allowed()) json_response(['error'=>'Página no disponible'], 404);
+if (!in_array($_SERVER['REQUEST_METHOD'], ['GET','POST'], true)) {
+    header('Allow: GET, POST');
+    json_response(['error'=>'Método no permitido'], 405);
+}
 try {
     $count=(int)db()->query('SELECT COUNT(*) FROM admin_users')->fetchColumn();
     if($_SERVER['REQUEST_METHOD']==='GET') json_response(['setup_required'=>$count===0,'csrf'=>$count===0?csrf():null]);

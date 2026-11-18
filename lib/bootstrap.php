@@ -4,6 +4,7 @@ const ROOT = __DIR__ . '/..';
 $configFile = ROOT . '/config.php';
 if (!is_file($configFile)) $configFile = ROOT . '/config.example.php';
 $config = require $configFile;
+function web_setup_allowed(): bool { return ($GLOBALS['config']['allow_web_setup'] ?? false) === true; }
 function db(): PDO { static $pdo; global $config; if (!$pdo) $pdo = new PDO($config['db']['dsn'], $config['db']['user'], $config['db']['pass'], [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,PDO::ATTR_EMULATE_PREPARES=>false]); return $pdo; }
 function session_start_safe(): void { if(session_status()!==PHP_SESSION_ACTIVE){session_name('lacustre_admin');session_set_cookie_params(['httponly'=>true,'samesite'=>'Lax','secure'=>!empty($_SERVER['HTTPS'])]);session_start();} }
 function json_response(array $data,int $status=200): never {http_response_code($status);header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store, no-cache, must-revalidate');echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);exit;}

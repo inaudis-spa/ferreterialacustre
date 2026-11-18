@@ -1,10 +1,32 @@
-import('./quote-cart.js');
-import('./site-nav.js');
-import('./site-media-runtime.js');
-import('./visual-editor.js');
-const root=document.querySelector('#product-detail');const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));const asset=p=>p.split('/').map(encodeURIComponent).join('/');
-async function init(){const id=new URLSearchParams(location.search).get('id');if(!id){showError();return}try{const response=await fetch(`api/product.php?id=${encodeURIComponent(id)}`);const data=await response.json();if(!response.ok)throw Error(data.error);render(data.product);renderOfferPrice(data.product);enableCart(data.product)}catch{showError()}}
-function renderOfferPrice(p){const valid=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value));const block=document.createElement('div');block.className='detail-prices';block.innerHTML=!valid(p.price)?'<span>Precio</span><div><strong>Consultar</strong></div>':`<span>${p.is_offer==1?'Precio oferta':'Precio'}</span><div>${p.is_offer==1&&valid(p.old_price)?`<del>$${Number(p.old_price).toLocaleString('es-CL')}</del>`:''}<strong>$${Number(p.price).toLocaleString('es-CL')}</strong></div>`;const anchor=document.querySelector('.product-brand')||document.querySelector('.product-info h1');anchor?.insertAdjacentElement('afterend',block)}
-function render(p){document.title=`${p.name} | Ferretería Lacustre`;const images=p.images||[],cover=images[0];root.innerHTML=`<div class="product-gallery"><div class="product-main-image">${cover?`<img id="main-product-image" src="${asset(cover.path)}" alt="${esc(cover.alt_text||p.name)}" style="object-position:${cover.focal_x}% ${cover.focal_y}%">`:'<div class="no-image">Sin fotografía</div>'}</div>${images.length>1?`<div class="product-thumbs">${images.map((image,index)=>`<button data-image="${asset(image.path)}" data-alt="${esc(image.alt_text||p.name)}" class="${index===0?'active':''}"><img src="${asset(image.path)}" alt=""></button>`).join('')}</div>`:''}</div><div class="product-info"><a class="product-back" href="catalogo.html?categoria=${esc(p.category_slug||'')}">← Volver al catálogo</a><p class="kicker">${esc(p.category_name||'Producto')}</p><h1>${esc(p.name)}</h1>${p.brand?`<p class="product-brand">Marca: ${esc(p.brand)}</p>`:''}<p class="product-short">${esc(p.short_description||'Consulta características, precio y disponibilidad directamente con nuestro equipo.')}</p><div class="product-description"><h2>Descripción</h2><p>${esc(p.long_description||p.short_description||'Este producto se encuentra disponible para consulta. Escríbenos para recibir especificaciones y confirmar disponibilidad.')}</p></div><div class="product-purchase"><div class="detail-qty"><span>Cantidad</span><button type="button" data-qty="minus">−</button><strong id="detail-quantity">1</strong><button type="button" data-qty="plus">+</button></div><a id="product-whatsapp" class="btn btn-primary" href="#">Consultar por WhatsApp ↗</a><small>La consulta no reserva stock ni confirma una compra.</small></div></div>`;let quantity=1;const quantityEl=document.querySelector('#detail-quantity'),link=document.querySelector('#product-whatsapp');function update(){quantityEl.textContent=quantity;const message=`Hola Ferretería Lacustre, quisiera consultar por:\n• ${p.name}\n• Cantidad: ${quantity}\n¿Me pueden confirmar precio y disponibilidad?`;link.href=`https://wa.me/56972912278?text=${encodeURIComponent(message)}`}update();root.querySelectorAll('[data-qty]').forEach(b=>b.onclick=()=>{quantity=Math.max(1,quantity+(b.dataset.qty==='plus'?1:-1));update()});root.querySelectorAll('[data-image]').forEach(b=>b.onclick=()=>{const img=document.querySelector('#main-product-image');img.src=b.dataset.image;img.alt=b.dataset.alt;root.querySelectorAll('[data-image]').forEach(x=>x.classList.remove('active'));b.classList.add('active')})}
-function enableCart(product){const button=document.querySelector('#product-whatsapp');button.textContent='Agregar a mi cotización +';button.removeAttribute('href');button.setAttribute('role','button');button.onclick=event=>{event.preventDefault();const quantity=Number(document.querySelector('#detail-quantity').textContent)||1;window.dispatchEvent(new CustomEvent('lacustre:add-cart',{detail:{id:product.id,quantity}}))}}
-function showError(){root.innerHTML='<div class="empty-state"><strong>Producto no disponible.</strong><p>Puede haber sido retirado o despublicado.</p><a href="catalogo.html">Volver al catálogo</a></div>'}init();
+import './site-nav.js';
+import './quote-cart.js';
+
+const add=document.querySelector('#product-add');
+if(add){
+  const quantityControl=document.querySelector('.detail-qty');
+  const quantityLabel=document.querySelector('#detail-quantity');
+  let quantity=1;
+  add.hidden=false;
+  quantityControl.hidden=false;
+  quantityControl.querySelectorAll('[data-qty]').forEach(button=>{
+    button.onclick=()=>{
+      quantity=Math.max(1,quantity+(button.dataset.qty==='plus'?1:-1));
+      quantityLabel.textContent=quantity;
+    };
+  });
+  add.onclick=()=>window.dispatchEvent(new CustomEvent('lacustre:add-cart',{detail:{id:add.dataset.id,quantity}}));
+}
+const image=document.querySelector('#main-product-image');
+const thumbnails=document.querySelectorAll('[data-image]');
+for(const button of thumbnails){
+  button.onclick=()=>{
+    if(!image)return;
+    image.src=button.dataset.image;
+    image.alt=button.dataset.alt;
+    image.style.objectPosition=`${button.dataset.x}% ${button.dataset.y}%`;
+    for(const item of thumbnails){
+      item.classList.toggle('active',item===button);
+      item.setAttribute('aria-pressed',String(item===button));
+    }
+  };
+}

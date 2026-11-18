@@ -1,5 +1,18 @@
-<!doctype html><html lang="es-CL"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Producto | Ferretería Lacustre</title><meta name="description" content="Detalle de producto y cotización por WhatsApp en Ferretería Lacustre."><link rel="stylesheet" href="styles.css"><script defer src="producto.js"></script></head><body class="catalog-page">
-<header class="site-header catalog-header"><div class="header-inner"><a class="brand" href="index.html"><img src="ferreterialacustre/logo-circular-de-ferreteria-lacustre.png" alt="" width="64"><span>Ferretería<br><strong>Lacustre</strong></span></a><nav><a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a><a href="categorias.html">Categorías</a><a href="ofertas.html">Ofertas</a></nav><a class="btn btn-primary" href="https://wa.me/56972912278">WhatsApp</a></div></header>
-<main><section class="product-detail shell" id="product-detail"><p class="product-loading">Cargando producto…</p></section></main>
-<footer><div class="shell footer-grid"><div class="footer-brand"><img src="ferreterialacustre/logo-circular-de-ferreteria-lacustre.png" alt="Ferretería Lacustre" width="112"><p>Soluciones para construir,<br>reparar y avanzar.</p></div><div><strong>Explora</strong><a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a><a href="ofertas.html">Ofertas</a></div><div><strong>Contacto</strong><a href="tel:+56972912278">+56 9 7291 2278</a><a href="https://www.instagram.com/ferreteria.lacustre/">Instagram</a></div></div></footer>
-<div class="social-float"><a class="social-instagram" href="https://www.instagram.com/ferreteria.lacustre/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="dot"/></svg></a><a class="social-whatsapp" href="https://wa.me/56972912278" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.5 7.8c.3-.4.6-.4.9-.1l1.1 1.5c.2.3.1.6-.1.9l-.5.6c.7 1.5 1.8 2.6 3.3 3.2l.6-.7c.2-.2.5-.3.8-.1l1.6.8c.4.2.4.5.3.9-.4 1-1.3 1.5-2.4 1.4-3.8-.5-6.8-3.4-7.3-7.1-.1-.6.5-1.1 1.7-1.3Z"/></svg></a></div></body></html>
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Producto | Ferretería Lacustre</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    const id=new URLSearchParams(location.search).get('id');
+    if(id&&/^\d+$/.test(id))location.replace('producto.php?id='+encodeURIComponent(id));
+  </script>
+</head>
+<body class="catalog-page">
+<header class="site-header catalog-header"><div class="header-inner"><a class="brand" href="index.html"><img src="ferreterialacustre/logo-circular-de-ferreteria-lacustre.png" alt="" width="64"><span>Ferretería<br><strong>Lacustre</strong></span></a><nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="catalogo.html">Catálogo</a><a href="categorias.html">Categorías</a><a href="ofertas.html">Ofertas</a><a href="index.html#locales">Locales</a></nav><a class="btn btn-primary" href="https://wa.me/56972912278">WhatsApp</a></div></header>
+<main class="shell branch-detail"><h1>Consulta el catálogo</h1><p>Abre el catálogo para encontrar el producto que buscas.</p><a href="catalogo.html">Ir al catálogo</a></main>
+</body>
+</html>
